@@ -82,7 +82,7 @@ Also you could try much bigger wordlists from the internet (e.g. from https://gi
 
 ## Notes
 
-Inspired by https://github.com/RhZjQyMWI/veracryptcrack (dead link)
+Inspired by https://github.com/BillDietrich/veracryptcrack
 
 Used info in https://www.rubydevices.com.au/blog/how-to-hack-keepass with some changes.
 
@@ -93,6 +93,12 @@ https://www.openwall.com/john/
 https://github.com/magnumripper/JohnTheRipper/
 
 Potentially this project could be modified to crack anything else where you know the hash or where John The Ripper can extract a hash (e.g. Linux /etc/shadow file, RAR, 7Z, etc).  Also there is a Pro version of John The Ripper, I don't know what it can do.
+
+Also see: https://github.com/haydn-jones/keepass_crack
+
+Also see: https://github.com/imthoe/python-keepass
+
+Also see: https://github.com/abcarroll/keepass-simple-crack-kit
 
 
 ## Privacy Policy
