@@ -4,7 +4,7 @@ Simple KeePass password manager database cracker using wordlist (dictionary).  L
 
 Does not work on KDBX 4.0 format database.  Does work on KDBX 3.1 format.
 
-Often useful when you forget which keyfile you used, or mixed up a few characters in a password.
+May be useful if you forget which keyfile you used, or mixed up a few characters in a password.
 
 When done, use 'wipe' or 'srm' to securely overwrite your wordlist.
 
@@ -19,7 +19,9 @@ On Ubuntu, through Ubuntu Software application, install snap version of "John th
 
 ```shell
 # This takes around 500 MB of disk space !
-# There is a way to run without hashcat, see "Alternative method" section below.
+# There is a way to run without invoking hashcat, see "Alternative method"
+# section below.  But I am guessing that John the Ripper either uses hashcat
+# underneath, or at least shares the same potfile with it.
 sudo apt install hashcat
 
 chmod u+x keepass_crack.sh
@@ -36,7 +38,9 @@ hashcat --version
 # Spoiler: password for test database is "1234".
 ```
 
-On my slow laptop, with correct password on line 207 of wordlist.txt, no keyfile, it took 48 seconds.  So about 4 hashes per second, which I'm sure is pathetic.
+You can adjust the "workload-profile" of hashcat, which specifies how much of a load it will put on the system.  By default it is set to 2 ("Noticeable").
+
+On my slow laptop, with workload-profile set to 1 ("Minimal"), and correct password on line 207 of wordlist.txt, no keyfile, it took 48 seconds.  So about 4 hashes per second, which I'm sure is pathetic.  With workload-profile set to 2, it took 38 seconds, about 5 hashes/second.  I see users with powerful systems talking about doing hundreds of hashes per second, although they're probably not doing the same algorithm.
 
 Hashcat remembers previously computed hashes, so if you run it again with same or expanded wordlist, it will run much faster (won't re-compute hashes for passwords it's already hashed).
 
@@ -45,7 +49,7 @@ Hashcat remembers previously computed hashes, so if you run it again with same o
 
 After implementing the hashcat method, I found (in https://bytesoverbombs.io/cracking-everything-with-john-the-ripper-d434f0f6dc1c) that John The Ripper can do everything by itself (at least for dictionary attacks), no need to use hashcat.
 
-In keepass_crack.sh, un-comment the 4 lines after "Easy way of doing it" and run again.  Takes about 60 seconds on my machine, so not much slower than hashcat.
+In keepass_crack.sh, un-comment the 4 lines after "Easy way of doing it" and run again.  Takes about 60 seconds on my machine, so not much slower than hashcat with workload-profile set to 1.
 
 
 ### Run for real against your database

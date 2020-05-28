@@ -38,6 +38,7 @@ echo
 #john --show "$hashfilename"
 #rm -f "$hashfilename"
 #exit
+# But I suspect it's using hashcat underneath, or at least using the same potfile.
 
 
 # remove database name and ":" from start of hash file
@@ -53,11 +54,11 @@ echo
 # --hash-type 13400 => KeePass Hash Provided
 # --attack-mode 0 => Dictionary Attack ("Straight")
 # --workload-profile 1 => workload profile (Low Latency Desktop Profile)
+# add following argument if you want to do a timing run, force compute all hashes
 # --potfile-disable => don't remember previously-cracked hashes
-#hashcat --force --status --hash-type=13400 --attack-mode=0 --workload-profile=1 -o "$foundpasswordfilename" "$hashfilename" "$wordlist"
 
 # do the actual hashing
-hashcat --quiet --force --status --hash-type=13400 --attack-mode=0 --workload-profile=1 "$hashfilename" "$wordlist"
+hashcat --quiet --force --status --hash-type=13400 --attack-mode=0 --workload-profile=2 "$hashfilename" "$wordlist"
 
 # obtain the password for any hash that matches the needed hash
 hashcat --hash-type=13400 --show -o "$foundpasswordfilename" "$hashfilename"
